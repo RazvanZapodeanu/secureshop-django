@@ -1,0 +1,199 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+{% block title %}Produse - Magazin Securitate{% endblock %}
+
+{% block content %}
+<h1>Echipamente de Securitate</h1>
+
+<div style="display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+            gap: 25px; 
+            margin-top: 40px;">
+    
+    {% for produs in produse %}
+    <div class="product-card" style="padding: 0;">
+        
+        <div style="position: absolute; 
+                    top: 0; 
+                    right: 0; 
+                    width: 60px; 
+                    height: 60px; 
+                    background: linear-gradient(135deg, transparent 50%, var(--lambda-orange) 50%);
+                    opacity: 0.7;"></div>
+        
+        <div style="width: 100%; 
+                    height: 250px; 
+                    display: flex; 
+                    align-items: center; 
+                    justify-content: center; 
+                    background: #e5e5e5;
+                    border-bottom: 2px solid var(--border-color);
+                    position: relative;
+                    overflow: hidden;">
+            
+            {% if produs.imagine %}
+                <img src="{{ produs.imagine.url }}" 
+                     alt="{{ produs.nume }}" 
+                     style="max-width: 100%; 
+                            max-height: 100%; 
+                            object-fit: contain;
+                            transition: transform 0.4s ease;
+                            filter: brightness(0.9);">
+            {% else %}
+                <div style="color: var(--text-secondary); font-size: 14px;">
+                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                        <polyline points="21 15 16 10 5 21"></polyline>
+                    </svg>
+                </div>
+            {% endif %}
+            
+            <div class="scan-line" style="position: absolute;
+                                          top: -2px;
+                                          left: 0;
+                                          width: 100%;
+                                          height: 2px;
+                                          background: linear-gradient(90deg, transparent, var(--tech-cyan), transparent);
+                                          animation: scan 3s linear infinite;"></div>
+        </div>
+        
+        <div style="padding: 20px;">
+            <div style="font-size: 11px; 
+                        color: var(--lambda-orange); 
+                        font-family: 'Courier New', monospace;
+                        margin-bottom: 8px;
+                        letter-spacing: 1px;">
+                ID: {{ produs.cod_produs }}
+            </div>
+            
+            <h3 style="margin: 0 0 12px 0; 
+                       color: var(--text-primary); 
+                       font-size: 1.1rem;
+                       font-weight: 500;
+                       line-height: 1.3;">
+                {{ produs.nume }}
+            </h3>
+            
+            <p style="color: var(--text-secondary); 
+                      font-size: 0.9rem; 
+                      margin: 12px 0;
+                      line-height: 1.4;">
+                {{ produs.descriere_scurta|truncatewords:15 }}
+            </p>
+
+            <div style="margin: 15px 0; display: flex; flex-wrap: wrap; gap: 6px;">
+                {% for tag in produs.tag_uri.all %}
+                <span style="background: linear-gradient(135deg, {{ tag.culoare }}22, {{ tag.culoare }}11);
+                             color: {{ tag.culoare }};
+                             border: 1px solid {{ tag.culoare }}88;
+                             padding: 4px 10px;
+                             font-size: 0.75rem;
+                             font-weight: 500;
+                             letter-spacing: 0.5px;
+                             text-transform: uppercase;
+                             clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);">
+                    {{ tag.nume }}
+                </span>
+                {% endfor %}
+            </div>
+            
+            <div style="margin-top: 20px; 
+                        padding-top: 15px; 
+                        border-top: 1px solid rgba(0, 217, 255, 0.2);">
+                
+                {% if produs.discount_activ %}
+                    <div style="background: var(--lambda-orange); 
+                                color: white; 
+                                padding: 6px 12px; 
+                                font-size: 0.75rem; 
+                                font-weight: 600;
+                                letter-spacing: 1px;
+                                display: inline-block;
+                                margin-bottom: 10px;
+                                clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);">
+                        -{{ produs.discount_activ.procent }}% REDUCERE
+                    </div>
+                {% endif %}
+                
+                {% if produs.pret_vechi %}
+                <div style="text-decoration: line-through; 
+                            color: var(--text-secondary); 
+                            font-size: 0.9rem;">
+                    {{ produs.pret_vechi }} LEI
+                </div>
+                {% endif %}
+                
+                {% if produs.discount_activ and not produs.pret_vechi %}
+                <div style="text-decoration: line-through; 
+                            color: var(--text-secondary); 
+                            font-size: 0.9rem;">
+                    {{ produs.pret }} LEI
+                </div>
+                {% endif %}
+                
+                <div style="font-size: 1.8rem; 
+                            font-weight: 600; 
+                            color: var(--tech-cyan);
+                            text-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
+                            margin: 5px 0;">
+                    {% if produs.discount_activ %}
+                        {{ produs.pret_cu_discount }}
+                    {% else %}
+                        {{ produs.pret }}
+                    {% endif %}
+                    <span style="font-size: 1rem; font-weight: 400; color: var(--text-secondary);">LEI</span>
+                </div>
+                
+                {% if produs.discount_activ %}
+                <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 5px;">
+                    Reducere valabilă până {{ produs.discount_activ.data_sfarsit|date:"d.m.Y" }}
+                </p>
+                {% endif %}
+                
+                <div style="margin-top: 12px; 
+                            font-size: 0.85rem;
+                            display: flex;
+                            align-items: center;
+                            gap: 6px;">
+                    {% if produs.stoc > 0 %}
+                        <span style="width: 8px; 
+                                     height: 8px; 
+                                     background: #00FF41; 
+                                     border-radius: 50%;
+                                     box-shadow: 0 0 8px #00FF41;
+                                     animation: pulse 2s ease-in-out infinite;"></span>
+                        <span style="color: #00FF41;">ÎN STOC ({{ produs.stoc }} buc)</span>
+                    {% else %}
+                        <span style="width: 8px; 
+                                     height: 8px; 
+                                     background: #FF4136; 
+                                     border-radius: 50%;"></span>
+                        <span style="color: #FF4136;">STOC EPUIZAT</span>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div style="margin-top: 15px; 
+                        padding-top: 15px; 
+                        border-top: 1px solid rgba(0, 217, 255, 0.1);
+                        font-size: 0.85rem;
+                        color: var(--text-secondary);">
+                <strong style="color: var(--lambda-orange);">PRODUCĂTOR:</strong> {{ produs.producator.nume }}
+            </div>
+        </div>
+        
+        <div class="card-glow"></div>
+    </div>
+    {% empty %}
+    <p style="grid-column: 1 / -1; 
+              text-align: center; 
+              color: var(--text-secondary);
+              padding: 60px 20px;">
+        Nu există produse disponibile momentan.
+    </p>
+    {% endfor %}
+</div>
+
+{% endblock %}

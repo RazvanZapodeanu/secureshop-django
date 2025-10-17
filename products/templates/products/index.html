@@ -1,0 +1,156 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+{% block title %}Acasă - Magazin Securitate{% endblock %}
+
+{% block content %}
+
+<div style="background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--facility-dark) 100%);
+            border: 2px solid var(--border-color);
+            padding: 60px 40px;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;">
+    
+    <div style="position: absolute;
+                top: 0;
+                right: 0;
+                width: 150px;
+                height: 150px;
+                background: linear-gradient(135deg, transparent 50%, var(--lambda-orange) 50%);
+                opacity: 0.2;"></div>
+    
+    <div style="position: relative; z-index: 1; max-width: 700px;">
+        <h1 style="font-size: 2.5rem;
+                   margin: 0 0 20px 0;
+                   color: var(--text-primary);">
+            Magazin Echipamente de Securitate și Supraveghere
+        </h1>
+        
+        <p style="font-size: 1.1rem;
+                  color: var(--text-secondary);
+                  line-height: 1.7;
+                  margin-bottom: 30px;">
+            Site-ul vinde echipamente de securitate și supraveghere online. Produsele includ camere de supraveghere, sisteme de alarmă, senzori de mișcare, dispozitive de viziune nocturnă și sisteme de control acces.
+        </p>
+        
+        <a href="{% url 'produse' %}" 
+           style="display: inline-block;
+                  background: var(--tech-cyan);
+                  color: white;
+                  padding: 15px 35px;
+                  text-decoration: none;
+                  font-weight: 600;
+                  letter-spacing: 1px;
+                  border: 2px solid var(--tech-cyan);
+                  transition: all 0.3s ease;"
+           onmouseover="this.style.background='transparent'; this.style.color='var(--tech-cyan)';"
+           onmouseout="this.style.background='var(--tech-cyan)'; this.style.color='white';">
+            VEZI PRODUSELE
+        </a>
+    </div>
+</div>
+
+<div style="display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;">
+    
+    <div style="background: var(--bg-card);
+                border: 1px solid var(--border-color);
+                border-left: 4px solid var(--lambda-orange);
+                padding: 35px 30px;
+                transition: all 0.3s ease;"
+         onmouseover="this.style.borderLeftColor='var(--tech-cyan)';"
+         onmouseout="this.style.borderLeftColor='var(--lambda-orange)';">
+        
+        <h2 style="color: var(--tech-cyan);
+                   font-size: 1.4rem;
+                   margin-bottom: 15px;">
+            Camere de Supraveghere Profesionale
+        </h2>
+        
+        <p style="color: var(--text-secondary);
+                  line-height: 1.6;">
+            Camere de supraveghere de calitate pentru monitorizarea locuințelor și a afacerilor. Disponibile cu rezoluții diferite și funcții avansate.
+        </p>
+    </div>
+    
+    <div style="background: var(--bg-card);
+                border: 1px solid var(--border-color);
+                border-left: 4px solid var(--lambda-orange);
+                padding: 35px 30px;
+                transition: all 0.3s ease;"
+         onmouseover="this.style.borderLeftColor='var(--tech-cyan)';"
+         onmouseout="this.style.borderLeftColor='var(--lambda-orange)';">
+        
+        <h2 style="color: var(--tech-cyan);
+                   font-size: 1.4rem;
+                   margin-bottom: 15px;">
+            Sisteme de Alarmă Inteligente
+        </h2>
+        
+        <p style="color: var(--text-secondary);
+                  line-height: 1.6;">
+            Sisteme de alarmă pentru protecția spațiilor rezidențiale și comerciale. Ușor de instalat și de folosit.
+        </p>
+    </div>
+    
+    <div style="background: var(--bg-card);
+                border: 1px solid var(--border-color);
+                border-left: 4px solid var(--lambda-orange);
+                padding: 35px 30px;
+                transition: all 0.3s ease;"
+         onmouseover="this.style.borderLeftColor='var(--tech-cyan)';"
+         onmouseout="this.style.borderLeftColor='var(--lambda-orange)';">
+        
+        <h2 style="color: var(--tech-cyan);
+                   font-size: 1.4rem;
+                   margin-bottom: 15px;">
+            Soluții Complete de Securitate
+        </h2>
+        
+        <p style="color: var(--text-secondary);
+                  line-height: 1.6;">
+            Pachete complete pentru securitate: camere, alarme, senzori și control acces. Tot ce ai nevoie pentru protecție.
+        </p>
+    </div>
+</div>
+
+<div style="background: var(--bg-secondary);
+            border: 1px solid var(--tech-cyan);
+            border-left: 5px solid var(--lambda-orange);
+            padding: 40px;
+            margin: 50px 0;">
+    
+    <h2 style="color: var(--text-primary);
+               font-size: 1.8rem;
+               margin-bottom: 20px;">
+        Ce Oferim
+    </h2>
+    
+    <div style="display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;">
+        
+        <div>
+            <div style="color: var(--lambda-orange); font-size: 1.3rem; margin-bottom: 5px;">✓</div>
+            <div style="color: var(--text-primary); margin-bottom: 5px;">Produse de Calitate</div>
+            <div style="color: var(--text-secondary); font-size: 0.9rem;">Selectate de la producători verificați</div>
+        </div>
+        
+        <div>
+            <div style="color: var(--lambda-orange); font-size: 1.3rem; margin-bottom: 5px;">✓</div>
+            <div style="color: var(--text-primary); margin-bottom: 5px;">Livrare Rapidă</div>
+            <div style="color: var(--text-secondary); font-size: 0.9rem;">În toată țara</div>
+        </div>
+        
+        <div>
+            <div style="color: var(--lambda-orange); font-size: 1.3rem; margin-bottom: 5px;">✓</div>
+            <div style="color: var(--text-primary); margin-bottom: 5px;">Prețuri Competitive</div>
+            <div style="color: var(--text-secondary); font-size: 0.9rem;">Raport calitate-preț excelent</div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,276 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Magazin Echipamente Securitate{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'products/css/style.css' %}">
+</head>
+<body>
+    <header style="background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+               border-bottom: 2px solid var(--border-color);
+               box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+               position: sticky;
+               top: 0;
+               z-index: 1000;
+               backdrop-filter: blur(10px);">
+    
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+        <div style="display: flex; align-items: center; padding: 15px 0; gap: 15px;">
+            <div style="width: 40px; height: 40px; 
+                        background: var(--lambda-orange);
+                        display: flex; align-items: center; justify-content: center;
+                        font-weight: bold; font-size: 24px;
+                        color: white;
+                        clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+                        box-shadow: 0 0 20px rgba(255, 107, 53, 0.5);">
+                λ
+            </div>
+            <h1 style="color: var(--text-primary); 
+                       font-size: 1.5rem; 
+                       font-weight: 300;
+                       letter-spacing: 2px;
+                       margin: 0;">
+                SECURED <span style="color: var(--lambda-orange); font-weight: 600;">SYSTEMS</span>
+            </h1>
+        </div>
+        
+        <nav style="border-top: 1px solid rgba(0, 217, 255, 0.2);">
+            <ul style="list-style: none; 
+                       display: flex; 
+                       gap: 0; 
+                       padding: 0;
+                       margin: 0;
+                       flex-wrap: wrap;">
+                
+                <li class="nav-item">
+                    <a href="{% url 'index' %}" class="nav-link">
+                        <span>HOME</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="{% url 'despre' %}" class="nav-link">
+                        <span>DESPRE</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item dropdown">
+                    <a href="{% url 'produse' %}" class="nav-link dropdown-toggle">
+                        <span>ECHIPAMENTE</span>
+                        <svg class="dropdown-arrow" width="10" height="10" viewBox="0 0 12 12" fill="currentColor" style="margin-left: 6px; transition: transform 0.3s ease;">
+                            <path d="M6 9L1 4h10z"/>
+                        </svg>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="{% url 'produse' %}" class="dropdown-item">Camere Supraveghere</a>
+                        <a href="{% url 'produse' %}" class="dropdown-item">Sisteme Alarmă</a>
+                        <a href="{% url 'produse' %}" class="dropdown-item">Senzori & Detectoare</a>
+                        <a href="{% url 'produse' %}" class="dropdown-item">Control Acces</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="{% url 'produse' %}" class="dropdown-item">Toate produsele</a>
+                    </div>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="{% url 'contact' %}" class="nav-link">
+                        <span>CONTACT</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="{% url 'cos_virtual' %}" class="nav-link">
+                        <span>COȘ VIRTUAL</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<style>
+.nav-item {
+    position: relative;
+}
+
+.nav-link {
+    display: block;
+    padding: 12px 20px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-right: 1px solid rgba(0, 217, 255, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link::before,
+.nav-link::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.2), transparent);
+    transition: width 0.4s ease;
+    z-index: 0;
+}
+
+.nav-link::before {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav-link::after {
+    right: 50%;
+    transform: translateX(50%);
+}
+
+.nav-link:hover::before {
+    width: 50%;
+    left: 0;
+    transform: translateX(0);
+}
+
+.nav-link:hover::after {
+    width: 50%;
+    right: 0;
+    transform: translateX(0);
+}
+
+.nav-link:hover {
+    color: var(--tech-cyan) !important;
+    background: rgba(0, 217, 255, 0.05);
+}
+
+.nav-link span {
+    position: relative;
+    z-index: 1;
+    transition: text-shadow 0.3s ease;
+}
+
+.nav-link:hover span {
+    text-shadow: 0 0 10px rgba(0, 217, 255, 0.8);
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+}
+
+.dropdown:hover .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    background: rgba(0, 78, 137, 0.95);
+    border: 1px solid rgba(0, 217, 255, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    display: block;
+    padding: 12px 20px;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    border-left: 3px solid transparent;
+}
+
+.dropdown-item:hover {
+    background: rgba(0, 217, 255, 0.2);
+    border-left-color: var(--tech-cyan);
+    color: white;
+    padding-left: 25px;
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: rgba(0, 217, 255, 0.3);
+    margin: 8px 0;
+}
+
+@media (max-width: 768px) {
+    .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        margin-top: 5px;
+    }
+    
+    nav ul {
+        flex-direction: column;
+    }
+    
+    .nav-link {
+        border-right: none;
+        border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+    }
+}
+</style>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer style="background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+               border-top: 2px solid var(--border-color);
+               margin-top: 60px;
+               padding: 30px 20px;
+               text-align: center;
+               box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);">
+    
+    <div style="max-width: 1200px; margin: 0 auto;">
+        <div style="display: flex; 
+                    justify-content: space-between; 
+                    align-items: center;
+                    flex-wrap: wrap;
+                    gap: 20px;">
+            
+            <div style="color: var(--text-secondary); font-size: 0.9rem;">
+                <span style="color: var(--lambda-orange);">λ</span> 
+                © Zapodeanu Razvan 
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <span style="color: var(--text-secondary); font-size: 0.85rem;">
+                    CLIENT IP:
+                </span>
+                <span style="font-family: 'Courier New', monospace;
+                             color: var(--tech-cyan);
+                             background: rgba(0, 217, 255, 0.1);
+                             padding: 4px 12px;
+                             border: 1px solid rgba(0, 217, 255, 0.3);
+                             font-size: 0.85rem;">
+                    {{ request.META.REMOTE_ADDR }}
+                </span>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
