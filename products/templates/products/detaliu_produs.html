@@ -1,0 +1,146 @@
+{% extends 'products/base.html' %}
+{% load custom_tags %}
+
+{% block title %}{{ produs.nume }} - Secured Systems{% endblock %}
+
+{% block content %}
+<div class="container">
+    
+    <div class="grid-2-gap-40">
+        
+        <div>
+            {% if produs.imagine %}
+            <img src="{{ produs.imagine.url }}" alt="{{ produs.nume }}" class="product-detail-image">
+            {% else %}
+            <div class="product-detail-placeholder">
+                <i class="fas fa-image"></i>
+            </div>
+            {% endif %}
+        </div>
+        
+        <div>
+            <h1 class="product-detail-title">{{ produs.nume }}</h1>
+            
+            {% if produs.producator %}
+            <p class="text-muted mb-20">
+                Producator: <strong>{{ produs.producator.nume }}</strong>
+            </p>
+            {% endif %}
+            
+            <div class="mb-30">
+                {% if discount_activ %}
+                <span class="text-muted text-strikethrough text-lg">
+                    {{ produs.pret }} LEI
+                </span>
+                <span class="product-discount-badge">
+                    -{{ discount_activ.procent }}%
+                </span>
+                <div class="product-detail-price mt-10">
+                    {{ pret_final }} LEI
+                </div>
+                {% else %}
+                <div class="product-detail-price">
+                    {{ produs.pret }} LEI
+                </div>
+                {% endif %}
+                
+                {% comment %} <div class="text-muted mt-10">
+                    {% pret_euro pret_final %} EUR (curs aproximativ)
+                </div> {% endcomment %}
+            </div>
+            
+            <div class="mb-30">
+                {% if produs.stoc > 0 %}
+                <span class="text-green">
+                    <i class="fas fa-check-circle"></i> In stoc ({{ produs.stoc }} buc)
+                </span>
+                {% else %}
+                <span class="text-red">
+                    <i class="fas fa-times-circle"></i> Indisponibil
+                </span>
+                {% endif %}
+            </div>
+            
+            {% if produs.stoc > 0 %}
+            <button onclick="adaugaInCos({{ produs.id }}, '{{ produs.nume|escapejs }}', {{ pret_final }}, {{ produs.stoc }}, '{% if produs.imagine %}{{ produs.imagine.url }}{% endif %}', '{{ produs.slug }}')"
+                    class="btn btn-orange btn-lg">
+                <i class="fas fa-cart-plus"></i> Adauga in cos
+            </button>
+            {% else %}
+            <button class="btn btn-disabled btn-lg" disabled>
+                <i class="fas fa-times"></i> Indisponibil
+            </button>
+            {% endif %}
+            
+            <div class="product-meta">
+                <p>
+                    <i class="fas fa-barcode"></i> Cod produs: {{ produs.cod_produs|default:"N/A" }}
+                </p>
+                {% if produs.categorii.all %}
+                <p>
+                    <i class="fas fa-list"></i> Categorii: 
+                    {% for cat in produs.categorii.all %}
+                        <a href="{% url 'categorie' cat.slug %}">{{ cat.nume }}</a>{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <section class="mt-40">
+        <h2>Descriere</h2>
+        <p>{{ produs.descriere_lunga|default:"Nu exista descriere pentru acest produs." }}</p>
+    </section>
+    
+    {% if specificatii %}
+    <section>
+        <h2>Specificatii tehnice</h2>
+        <table>
+            <tbody>
+            {% for spec in specificatii %}
+                <tr>
+                    <td class="spec-name">{{ spec.nume }}</td>
+                    <td>{{ spec.valoare }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    {% endif %}
+    
+    <section>
+        <h2>Recenzii</h2>
+        {% if rating_mediu %}
+        <p class="mb-20">
+            <span class="text-yellow text-2xl">★</span>
+            <span class="text-xl text-bold">{{ rating_mediu }}</span>
+            <span class="text-muted">/ 5 ({{ reviews.count }} recenzii)</span>
+        </p>
+        {% endif %}
+        
+        {% if reviews %}
+            {% for review in reviews %}
+            <div class="review-item">
+                <div class="review-header">
+                    <strong class="review-title" style="color: var(--cyan); font-size: 1.1rem;">{{ review.titlu|default:"Recenzie Produs" }}</strong>
+                    <strong class="review-author">{{ review.nume_client|default:"Anonim" }}</strong>
+                    <span class="review-rating">{% for i in "12345" %}{% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}{% endfor %}</span>
+                </div>
+                <p>{{ review.comentariu }}</p>
+                <small class="review-date">{{ review.data_review|date:"d.m.Y" }}</small>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-muted">Nu exista recenzii pentru acest produs.</p>
+        {% endif %}
+    </section>
+    
+    <div class="mt-30">
+        <a href="{% url 'produse' %}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Inapoi la produse
+        </a>
+    </div>
+    
+</div>
+{% endblock %}

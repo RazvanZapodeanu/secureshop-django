@@ -1,0 +1,54 @@
+{% extends 'products/base.html' %}
+
+{% block title %}Login - Secured Systems{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-box">
+        <h1 class="auth-title">
+            <i class="fas fa-sign-in-alt"></i> Autentificare
+        </h1>
+        
+        {% if form.errors %}
+        <div class="alert alert-error">
+            {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label class="form-label">
+                    <i class="fas fa-user"></i> Username
+                </label>
+                <input type="text" name="username" required class="form-input">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">
+                    <i class="fas fa-lock"></i> Parola
+                </label>
+                <input type="password" name="password" required class="form-input">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-checkbox">
+                    <input type="checkbox" name="remember_me">
+                    Pastreaza-ma logat (1 zi)
+                </label>
+            </div>
+            
+            <button type="submit" class="btn btn-orange btn-full">
+                <i class="fas fa-sign-in-alt"></i> Logheaza-te
+            </button>
+        </form>
+        
+        <p class="auth-footer">
+            Nu ai cont? <a href="{% url 'inregistrare' %}">Inregistreaza-te</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

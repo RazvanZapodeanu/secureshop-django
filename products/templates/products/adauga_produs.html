@@ -1,0 +1,155 @@
+{% extends 'products/base.html' %}
+
+{% block title %}Adauga Produs - Secured Systems{% endblock %}
+
+{% block content %}
+<div class="add-product-container">
+    
+    <div class="add-product-header">
+        <h1>ADAUGA PRODUS NOU</h1>
+        <p>Completeaza formularul pentru a adauga un produs nou in sistem</p>
+    </div>
+
+    {% if form.non_field_errors %}
+    <div class="alert alert-error">
+        <strong>Erori de validare:</strong>
+        {{ form.non_field_errors }}
+    </div>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data" class="add-product-form">
+        {% csrf_token %}
+        
+        <div class="add-product-section">
+            <h2>Informatii de baza</h2>
+            
+            <div class="grid-2">
+                <div class="form-group">
+                    <label class="form-label">
+                        {{ form.producator.label }} <span class="required">*</span>
+                    </label>
+                    {{ form.producator }}
+                    {% if form.producator.errors %}
+                    <div class="form-error">{{ form.producator.errors.0 }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        {{ form.cod_produs.label }} <span class="required">*</span>
+                    </label>
+                    {{ form.cod_produs }}
+                    {% if form.cod_produs.errors %}
+                    <div class="form-error">{{ form.cod_produs.errors.0 }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group span-2">
+                    <label class="form-label">
+                        {{ form.nume.label }} <span class="required">*</span>
+                    </label>
+                    {{ form.nume }}
+                    {% if form.nume.errors %}
+                    <div class="form-error">{{ form.nume.errors.0 }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="add-product-section-highlight">
+            <h2>Configurare pret (Calculat automat)</h2>
+            
+            <div class="grid-2">
+                <div class="form-group">
+                    <label class="form-label">
+                        {{ form.pret_cumparare.label }} <span class="required">*</span>
+                    </label>
+                    {{ form.pret_cumparare }}
+                    <small class="form-help">{{ form.pret_cumparare.help_text }}</small>
+                    {% if form.pret_cumparare.errors %}
+                    <div class="form-error">{{ form.pret_cumparare.errors.0 }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        {{ form.adaos_comercial.label }} <span class="required">*</span>
+                    </label>
+                    {{ form.adaos_comercial }}
+                    <small class="form-help">{{ form.adaos_comercial.help_text }}</small>
+                    {% if form.adaos_comercial.errors %}
+                    <div class="form-error">{{ form.adaos_comercial.errors.0 }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="add-product-section">
+            <h2>Descriere produs</h2>
+            
+            <div class="form-group">
+                <label class="form-label">{{ form.descriere_scurta.label }}</label>
+                {{ form.descriere_scurta }}
+                {% if form.descriere_scurta.errors %}
+                <div class="form-error">{{ form.descriere_scurta.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">{{ form.descriere_lunga.label }}</label>
+                {{ form.descriere_lunga }}
+                {% if form.descriere_lunga.errors %}
+                <div class="form-error">{{ form.descriere_lunga.errors.0 }}</div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="add-product-section">
+            <h2>Stoc si Media</h2>
+            
+            <div class="grid-2">
+                <div class="form-group">
+                    <label class="form-label">
+                        {{ form.stoc.label }} <span class="required">*</span>
+                    </label>
+                    {{ form.stoc }}
+                    {% if form.stoc.errors %}
+                    <div class="form-error">{{ form.stoc.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        {{ form.imagine.label }} <span class="required">*</span>
+                    </label>
+                    {{ form.imagine }}
+                    {% if form.imagine.errors %}
+                    <div class="form-error">{{ form.imagine.errors.0 }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="add-product-section">
+            <h2>Categorii si Tag-uri</h2>
+            
+            <div class="grid-2">
+                <div class="form-group">
+                    <label class="form-label">{{ form.categorii.label }}</label>
+                    {{ form.categorii }}
+                    {% if form.categorii.errors %}
+                    <div class="form-error">{{ form.categorii.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label class="form-label">{{ form.tag_uri.label }}</label>
+                    {{ form.tag_uri }}
+                    {% if form.tag_uri.errors %}
+                    <div class="form-error">{{ form.tag_uri.errors.0 }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="mt-30 text-center">
+            <button type="submit" class="btn btn-orange btn-xl">
+                <i class="fas fa-save"></i> SALVEAZA PRODUS
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

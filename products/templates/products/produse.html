@@ -1,199 +1,192 @@
 {% extends 'products/base.html' %}
 {% load static %}
+{% load custom_tags %}
 
-{% block title %}Produse - Magazin Securitate{% endblock %}
+{% block title %}{% if categorie %}{{ categorie.nume }}{% else %}Produse{% endif %} - Secured Systems{% endblock %}
 
 {% block content %}
-<h1>Echipamente de Securitate</h1>
-
-<div style="display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
-            gap: 25px; 
-            margin-top: 40px;">
+<div class="container">
     
-    {% for produs in produse %}
-    <div class="product-card" style="padding: 0;">
+    {% if categorie %}
+    <h1 class="page-title mb-30">
+        <i class="fas fa-list"></i> {{ categorie.nume }}
+    </h1>
+    {% else %}
+    <h1 class="page-title mb-30">
+        Toate Produsele
+    </h1>
+    {% endif %}
+    
+    {% produs_zilei %}
+    
+    <div class="filter-box">
+        <h3 class="filter-title">
+            <i class="fas fa-filter"></i> Filtre
+        </h3>
         
-        <div style="position: absolute; 
-                    top: 0; 
-                    right: 0; 
-                    width: 60px; 
-                    height: 60px; 
-                    background: linear-gradient(135deg, transparent 50%, var(--lambda-orange) 50%);
-                    opacity: 0.7;"></div>
-        
-        <div style="width: 100%; 
-                    height: 250px; 
-                    display: flex; 
-                    align-items: center; 
-                    justify-content: center; 
-                    background: #e5e5e5;
-                    border-bottom: 2px solid var(--border-color);
-                    position: relative;
-                    overflow: hidden;">
-            
-            {% if produs.imagine %}
-                <img src="{{ produs.imagine.url }}" 
-                     alt="{{ produs.nume }}" 
-                     style="max-width: 100%; 
-                            max-height: 100%; 
-                            object-fit: contain;
-                            transition: transform 0.4s ease;
-                            filter: brightness(0.9);">
-            {% else %}
-                <div style="color: var(--text-secondary); font-size: 14px;">
-                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                        <polyline points="21 15 16 10 5 21"></polyline>
-                    </svg>
-                </div>
-            {% endif %}
-            
-            <div class="scan-line" style="position: absolute;
-                                          top: -2px;
-                                          left: 0;
-                                          width: 100%;
-                                          height: 2px;
-                                          background: linear-gradient(90deg, transparent, var(--tech-cyan), transparent);
-                                          animation: scan 3s linear infinite;"></div>
-        </div>
-        
-        <div style="padding: 20px;">
-            <div style="font-size: 11px; 
-                        color: var(--lambda-orange); 
-                        font-family: 'Courier New', monospace;
-                        margin-bottom: 8px;
-                        letter-spacing: 1px;">
-                ID: {{ produs.cod_produs }}
-            </div>
-            
-            <h3 style="margin: 0 0 12px 0; 
-                       color: var(--text-primary); 
-                       font-size: 1.1rem;
-                       font-weight: 500;
-                       line-height: 1.3;">
-                {{ produs.nume }}
-            </h3>
-            
-            <p style="color: var(--text-secondary); 
-                      font-size: 0.9rem; 
-                      margin: 12px 0;
-                      line-height: 1.4;">
-                {{ produs.descriere_scurta|truncatewords:15 }}
-            </p>
-
-            <div style="margin: 15px 0; display: flex; flex-wrap: wrap; gap: 6px;">
-                {% for tag in produs.tag_uri.all %}
-                <span style="background: linear-gradient(135deg, {{ tag.culoare }}22, {{ tag.culoare }}11);
-                             color: {{ tag.culoare }};
-                             border: 1px solid {{ tag.culoare }}88;
-                             padding: 4px 10px;
-                             font-size: 0.75rem;
-                             font-weight: 500;
-                             letter-spacing: 0.5px;
-                             text-transform: uppercase;
-                             clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);">
-                    {{ tag.nume }}
-                </span>
+        <form method="get" id="filtru-form">
+            <div class="filter-grid">
+                {% for field in form %}
+                    {% if not field.is_hidden %}
+                    <div class="form-group mb-0">
+                        <label class="form-label">{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                    {% else %}
+                        {{ field }}
+                    {% endif %}
                 {% endfor %}
             </div>
             
-            <div style="margin-top: 20px; 
-                        padding-top: 15px; 
-                        border-top: 1px solid rgba(0, 217, 255, 0.2);">
-                
-                {% if produs.discount_activ %}
-                    <div style="background: var(--lambda-orange); 
-                                color: white; 
-                                padding: 6px 12px; 
-                                font-size: 0.75rem; 
-                                font-weight: 600;
-                                letter-spacing: 1px;
-                                display: inline-block;
-                                margin-bottom: 10px;
-                                clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);">
-                        -{{ produs.discount_activ.procent }}% REDUCERE
-                    </div>
-                {% endif %}
-                
-                {% if produs.pret_vechi %}
-                <div style="text-decoration: line-through; 
-                            color: var(--text-secondary); 
-                            font-size: 0.9rem;">
-                    {{ produs.pret_vechi }} LEI
-                </div>
-                {% endif %}
-                
-                {% if produs.discount_activ and not produs.pret_vechi %}
-                <div style="text-decoration: line-through; 
-                            color: var(--text-secondary); 
-                            font-size: 0.9rem;">
-                    {{ produs.pret }} LEI
-                </div>
-                {% endif %}
-                
-                <div style="font-size: 1.8rem; 
-                            font-weight: 600; 
-                            color: var(--tech-cyan);
-                            text-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
-                            margin: 5px 0;">
-                    {% if produs.discount_activ %}
-                        {{ produs.pret_cu_discount }}
-                    {% else %}
-                        {{ produs.pret }}
-                    {% endif %}
-                    <span style="font-size: 1rem; font-weight: 400; color: var(--text-secondary);">LEI</span>
-                </div>
-                
-                {% if produs.discount_activ %}
-                <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 5px;">
-                    Reducere valabilă până {{ produs.discount_activ.data_sfarsit|date:"d.m.Y" }}
-                </p>
-                {% endif %}
-                
-                <div style="margin-top: 12px; 
-                            font-size: 0.85rem;
-                            display: flex;
-                            align-items: center;
-                            gap: 6px;">
-                    {% if produs.stoc > 0 %}
-                        <span style="width: 8px; 
-                                     height: 8px; 
-                                     background: #00FF41; 
-                                     border-radius: 50%;
-                                     box-shadow: 0 0 8px #00FF41;
-                                     animation: pulse 2s ease-in-out infinite;"></span>
-                        <span style="color: #00FF41;">ÎN STOC ({{ produs.stoc }} buc)</span>
-                    {% else %}
-                        <span style="width: 8px; 
-                                     height: 8px; 
-                                     background: #FF4136; 
-                                     border-radius: 50%;"></span>
-                        <span style="color: #FF4136;">STOC EPUIZAT</span>
-                    {% endif %}
-                </div>
+            <div class="filter-actions">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i> Filtreaza
+                </button>
+                <button type="button" onclick="resetFiltre()" class="btn btn-orange">
+                    <i class="fas fa-undo"></i> Reseteaza
+                </button>
+            </div>
+        </form>
+    </div>
+    
+    {% if mesaj_paginare %}
+    <div class="alert alert-warning">
+        <i class="fas fa-exclamation-triangle"></i> {{ mesaj_paginare }}
+    </div>
+    {% endif %}
+    
+    <div class="sort-buttons">
+        <a href="?sort=a{% if request.GET.urlencode %}&{{ request.GET.urlencode }}{% endif %}" class="sort-btn">
+            <i class="fas fa-sort-amount-up"></i> Pret crescator
+        </a>
+        <a href="?sort=d{% if request.GET.urlencode %}&{{ request.GET.urlencode }}{% endif %}" class="sort-btn">
+            <i class="fas fa-sort-amount-down"></i> Pret descrescator
+        </a>
+    </div>
+    
+    {% if pagina %}
+    <div class="product-grid">
+        {% for produs in pagina %}
+        <div class="product-card {% if produs.stoc == 0 %}out-of-stock{% endif %}" id="produs-{{ produs.id }}">
+            
+            {% if produs.stoc == 0 %}
+            <div class="product-badge product-badge-right">INDISPONIBIL</div>
+            {% endif %}
+
+            <div class="product-tags">
+                {% for tag in produs.tag_uri.all %}
+                    <span class="product-tag">{{ tag.nume }}</span>
+                {% endfor %}
             </div>
             
-            <div style="margin-top: 15px; 
-                        padding-top: 15px; 
-                        border-top: 1px solid rgba(0, 217, 255, 0.1);
-                        font-size: 0.85rem;
-                        color: var(--text-secondary);">
-                <strong style="color: var(--lambda-orange);">PRODUCĂTOR:</strong> {{ produs.producator.nume }}
+            {% if produs.discount_activ %}
+            <div class="product-badge product-badge-left">-{{ produs.discount_activ.procent }}%</div>
+            {% endif %}
+            
+            <div class="in-cos-marker product-badge product-badge-cart hidden">
+                <i class="fas fa-shopping-cart"></i> In cos
+            </div>
+            
+            {% if produs.imagine %}
+            <a href="{% url 'detaliu_produs' produs.slug %}">
+                <img src="{{ produs.imagine.url }}" class="product-image" alt="{{ produs.nume }}">
+            </a>
+            {% else %}
+            <a href="{% url 'detaliu_produs' produs.slug %}" class="product-image-placeholder">
+                <i class="fas fa-image"></i>
+            </a>
+            {% endif %}
+            
+            <div class="product-content">
+                <h3 class="product-title">
+                    <a href="{% url 'detaliu_produs' produs.slug %}">{{ produs.nume }}</a>
+                </h3>
+                
+                <p class="product-desc">{{ produs.descriere_scurta|truncatechars:80 }}</p>
+                
+                <div class="product-footer">
+                    <div>
+                        {% if produs.discount_activ %}
+                        <span class="product-price-old">{{ produs.pret }} LEI</span>
+                        <span class="product-price">{{ produs.pret_cu_discount }} LEI</span>
+                        {% else %}
+                        <span class="product-price">{{ produs.pret }} LEI</span>
+                        {% endif %}
+                    </div>
+                    <div class="product-stock {% if produs.stoc > 0 %}in-stock{% else %}out-of-stock{% endif %}">
+                        Stoc: {{ produs.stoc }}
+                    </div>
+                </div>
+                
+                {% if produs.stoc > 0 %}
+                <div class="product-actions">
+                    <button onclick="adaugaInCos({{ produs.id }}, '{{ produs.nume|escapejs }}', {{ produs.pret_cu_discount|stringformat:'g' }}, {{ produs.stoc }}, '{% if produs.imagine %}{{ produs.imagine.url }}{% endif %}', '{{ produs.slug }}')"
+                            class="btn btn-orange">
+                        <i class="fas fa-cart-plus"></i> Adauga
+                    </button>
+                    <a href="{% url 'detaliu_produs' produs.slug %}" class="btn btn-primary">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                </div>
+                {% else %}
+                <button class="btn btn-disabled btn-full" disabled>
+                    <i class="fas fa-times"></i> Indisponibil
+                </button>
+                {% endif %}
             </div>
         </div>
-        
-        <div class="card-glow"></div>
+        {% empty %}
+        <div class="empty-state full-width">
+            <i class="fas fa-search"></i>
+            <p>Nu s-au gasit produse cu aceste filtre.</p>
+        </div>
+        {% endfor %}
     </div>
-    {% empty %}
-    <p style="grid-column: 1 / -1; 
-              text-align: center; 
-              color: var(--text-secondary);
-              padding: 60px 20px;">
-        Nu există produse disponibile momentan.
-    </p>
-    {% endfor %}
+    
+    {% if pagina.has_other_pages %}
+    <div class="pagination">
+        {% if pagina.has_previous %}
+        <a href="?pagina={{ pagina.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'pagina' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+            <i class="fas fa-chevron-left"></i> Anterior
+        </a>
+        {% endif %}
+        
+        <span class="current">{{ pagina.number }} / {{ pagina.paginator.num_pages }}</span>
+        
+        {% if pagina.has_next %}
+        <a href="?pagina={{ pagina.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'pagina' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">
+            Urmator <i class="fas fa-chevron-right"></i>
+        </a>
+        {% endif %}
+    </div>
+    {% endif %}
+    {% endif %}
+    
+    {% if eroare %}
+    <div class="alert alert-error">{{ eroare }}</div>
+    {% endif %}
+    
+    {% ultimele_vizualizari %}
 </div>
 
+<script>
+function resetFiltre() {
+    if (confirm('Esti sigur ca vrei sa resetezi toate filtrele?')) {
+        window.location.href = window.location.pathname;
+    }
+}
+
+function marcheazaInCos() {
+    let cos = JSON.parse(localStorage.getItem('cos') || '[]');
+    cos.forEach(item => {
+        let card = document.getElementById('produs-' + item.id);
+        if (card) {
+            let marker = card.querySelector('.in-cos-marker');
+            if (marker) marker.classList.remove('hidden');
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', marcheazaInCos);
+</script>
 {% endblock %}

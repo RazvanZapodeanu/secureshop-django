@@ -1,0 +1,21 @@
+{% extends 'products/base.html' %}
+
+{% block title %}403 - Acces Interzis{% endblock %}
+
+{% block content %}
+<div class="error-page">
+    <div class="error-code">403</div>
+    <h1 class="error-title">{{ titlu|default:"Acces Interzis" }}</h1>
+    <p class="error-message">{{ mesaj_personalizat|default:"Nu ai permisiunea de a accesa aceasta pagina." }}</p>
+    
+    {% if numar_erori %}
+    <p class="text-orange mb-30">
+        Ai incercat de {{ numar_erori }} ori sa accesezi pagini interzise in aceasta sesiune.
+    </p>
+    {% endif %}
+    
+    <a href="{% url 'index' %}" class="btn btn-primary">
+        <i class="fas fa-home"></i> Inapoi la pagina principala
+    </a>
+</div>
+{% endblock %}

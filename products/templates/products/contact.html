@@ -1,0 +1,225 @@
+{% extends 'products/base.html' %}
+
+{% block title %}Contact - Secured Systems{% endblock %}
+
+{% block content %}
+<div class="container-narrow">
+    
+    <div class="page-header-center">
+        <h1 class="page-title">CONTACT</h1>
+        <p class="page-subtitle-center">
+            Trimite-ne un mesaj și te vom contacta în cel mai scurt timp
+        </p>
+    </div>
+
+    {% if form.non_field_errors %}
+    <div class="alert alert-error">
+        <strong><i class="fas fa-exclamation-triangle"></i> Erori de validare:</strong>
+        {{ form.non_field_errors }}
+    </div>
+    {% endif %}
+
+    <form method="post" class="card">
+        {% csrf_token %}
+        
+        <div class="grid-2">
+            
+            <div class="form-group">
+                <label for="{{ form.nume.id_for_label }}" class="form-label">
+                    {{ form.nume.label }} <span class="required">*</span>
+                </label>
+                <input type="text" 
+                    name="{{ form.nume.name }}" 
+                    id="{{ form.nume.id_for_label }}"
+                    maxlength="10"
+                    required
+                    class="form-input">
+                {% if form.nume.errors %}
+                <div class="form-error">
+                    <i class="fas fa-exclamation-circle"></i> {{ form.nume.errors.0 }}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.prenume.id_for_label }}" class="form-label">
+                    {{ form.prenume.label }}
+                </label>
+                <input type="text" 
+                    name="{{ form.prenume.name }}" 
+                    id="{{ form.prenume.id_for_label }}"
+                    maxlength="10"
+                    class="form-input">
+                {% if form.prenume.errors %}
+                <div class="form-error">
+                    <i class="fas fa-exclamation-circle"></i> {{ form.prenume.errors.0 }}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.cnp.id_for_label }}" class="form-label">
+                    {{ form.cnp.label }}
+                </label>
+                <input type="text" 
+                    name="{{ form.cnp.name }}" 
+                    id="{{ form.cnp.id_for_label }}"
+                    maxlength="13"
+                    placeholder="1234567890123"
+                    class="form-input">
+                {% if form.cnp.errors %}
+                <div class="form-error">
+                    <i class="fas fa-exclamation-circle"></i> {{ form.cnp.errors.0 }}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.data_nasterii.id_for_label }}" class="form-label">
+                    {{ form.data_nasterii.label }} <span class="required">*</span>
+                </label>
+                <input type="date" 
+                    name="{{ form.data_nasterii.name }}" 
+                    id="{{ form.data_nasterii.id_for_label }}"
+                    required
+                    class="form-input">
+                {% if form.data_nasterii.errors %}
+                <div class="form-error">
+                    <i class="fas fa-exclamation-circle"></i> {{ form.data_nasterii.errors.0 }}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.email.id_for_label }}" class="form-label">
+                    {{ form.email.label }} <span class="required">*</span>
+                </label>
+                <input type="email" 
+                    name="{{ form.email.name }}" 
+                    id="{{ form.email.id_for_label }}"
+                    required
+                    placeholder="exemplu@email.com"
+                    class="form-input">
+                {% if form.email.errors %}
+                <div class="form-error">
+                    <i class="fas fa-exclamation-circle"></i> {{ form.email.errors.0 }}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.confirmare_email.id_for_label }}" class="form-label">
+                    {{ form.confirmare_email.label }} <span class="required">*</span>
+                </label>
+                <input type="email" 
+                    name="{{ form.confirmare_email.name }}" 
+                    id="{{ form.confirmare_email.id_for_label }}"
+                    required
+                    placeholder="Repeta adresa de email"
+                    class="form-input">
+                {% if form.confirmare_email.errors %}
+                <div class="form-error">
+                    <i class="fas fa-exclamation-circle"></i> {{ form.confirmare_email.errors.0 }}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.telefon.id_for_label }}" class="form-label">
+                    {{ form.telefon.label }}
+                </label>
+                <input type="tel" 
+                    name="{{ form.telefon.name }}" 
+                    id="{{ form.telefon.id_for_label }}"
+                    placeholder="07xxxxxxxx"
+                    class="form-input">
+                {% if form.telefon.errors %}
+                <div class="form-error">
+                    <i class="fas fa-exclamation-circle"></i> {{ form.telefon.errors.0 }}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.tip_mesaj.id_for_label }}" class="form-label">
+                    {{ form.tip_mesaj.label }} <span class="required">*</span>
+                </label>
+                <select name="{{ form.tip_mesaj.name }}" 
+                        id="{{ form.tip_mesaj.id_for_label }}"
+                        required
+                        class="form-select">
+                    {% for value, label in form.tip_mesaj.field.choices %}
+                        <option value="{{ value }}">{{ label }}</option>
+                    {% endfor %}
+                </select>
+                {% if form.tip_mesaj.errors %}
+                <div class="form-error">
+                    <i class="fas fa-exclamation-circle"></i> {{ form.tip_mesaj.errors.0 }}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.minim_zile_asteptare.id_for_label }}" class="form-label">
+                    {{ form.minim_zile_asteptare.label }} <span class="required">*</span>
+                </label>
+                <input type="number" 
+                    name="{{ form.minim_zile_asteptare.name }}" 
+                    id="{{ form.minim_zile_asteptare.id_for_label }}"
+                    min="0"
+                    max="30"
+                    required
+                    class="form-input">
+                <small class="form-help">{{ form.minim_zile_asteptare.help_text }}</small>
+                {% if form.minim_zile_asteptare.errors %}
+                <div class="form-error">
+                    <i class="fas fa-exclamation-circle"></i> {{ form.minim_zile_asteptare.errors.0 }}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group span-2">
+                <label for="{{ form.subiect.id_for_label }}" class="form-label">
+                    {{ form.subiect.label }} <span class="required">*</span>
+                </label>
+                <input type="text" 
+                    name="{{ form.subiect.name }}" 
+                    id="{{ form.subiect.id_for_label }}"
+                    maxlength="100"
+                    required
+                    placeholder="Introdu subiectul mesajului"
+                    class="form-input">
+                {% if form.subiect.errors %}
+                <div class="form-error">
+                    <i class="fas fa-exclamation-circle"></i> {{ form.subiect.errors.0 }}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group span-2">
+                <label for="{{ form.mesaj.id_for_label }}" class="form-label">
+                    {{ form.mesaj.label }} <span class="required">*</span>
+                </label>
+                <textarea name="{{ form.mesaj.name }}" 
+                        id="{{ form.mesaj.id_for_label }}"
+                        rows="8"
+                        required
+                        placeholder="Scrie mesajul tău aici... Nu uita să te semnezi la final cu numele tău!"
+                        class="form-textarea"></textarea>
+                {% if form.mesaj.errors %}
+                <div class="form-error">
+                    <i class="fas fa-exclamation-circle"></i> {{ form.mesaj.errors.0 }}
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <div class="mt-30 text-center">
+            <button type="submit" class="btn btn-orange btn-xl">
+                <i class="fas fa-paper-plane"></i> Trimite Mesaj
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

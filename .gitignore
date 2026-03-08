@@ -6,10 +6,15 @@ __pycache__/
 .Python
 
 *.log
+logs/
+
 db.sqlite3
 db.sqlite3-journal
+
 /media/
 /staticfiles/
+temporar-facturi/
+products/Mesaje/
 
 .env
 .env.local
@@ -27,12 +32,15 @@ env/
 Thumbs.db
 desktop.ini
 
+postgre.txt
+backup_db.bat
+tree.txt
 *.docx
 *.pdf
-
-imagini_produse/
-
 *.drawio
 *.png
-secured.drawio
-secured.png
+!products/static/products/images/logo.png
+
+imagini_produse/
+examen/
+Pipfile.lock

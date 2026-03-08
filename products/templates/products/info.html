@@ -3,24 +3,26 @@
 {% block title %}Informatii Server{% endblock %}
 
 {% block content %}
-<h1>Informatii despre server</h1>
+<div class="container-narrow">
+    <h1 class="page-title">Informatii despre server</h1>
 
-{% if sectiune_data %}
-    {{ sectiune_data|safe }}
-{% endif %}
+    {% if sectiune_data %}
+        {{ sectiune_data|safe }}
+    {% endif %}
 
-<section>
-    <h2>Parametri</h2>
-    <p><strong>Numar parametri primiti:</strong> {{ numar_parametri }}</p>
-    <p><strong>Nume parametri:</strong> {{ nume_parametri }}</p>
-</section>
+    <section>
+        <h2>Parametri</h2>
+        <p><strong>Numar parametri primiti:</strong> {{ numar_parametri }}</p>
+        <p><strong>Nume parametri:</strong> {{ nume_parametri }}</p>
+    </section>
 
-<div style="background:white; padding:20px; border-radius:5px; margin-top:30px;">
-    <h3>Exemple de parametri:</h3>
-    <ul>
-        <li><a href="?data=zi">Data</a> - Afiseaza doar data</li>
-        <li><a href="?data=timp">Ora</a> - Afiseaza doar ora</li>
-        <li><a href="?data=complet">Data si ora</a> - Afiseaza data si ora</li>
-    </ul>
+    <div class="info-examples">
+        <h3>Exemple de parametri:</h3>
+        <ul>
+            <li><a href="?data=zi">Data</a> - Afiseaza doar data</li>
+            <li><a href="?data=timp">Ora</a> - Afiseaza doar ora</li>
+            <li><a href="?data=complet">Data si ora</a> - Afiseaza data si ora</li>
+        </ul>
+    </div>
 </div>
 {% endblock %}

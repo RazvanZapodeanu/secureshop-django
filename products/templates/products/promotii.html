@@ -1,0 +1,52 @@
+{% extends 'products/base.html' %}
+
+{% block title %}Promotii - Secured Systems{% endblock %}
+
+{% block content %}
+<div class="promo-container">
+    <div class="promo-box">
+        
+        <h1 class="promo-title">
+            <i class="fas fa-percentage"></i> Creeaza Promotie
+        </h1>
+        
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success">
+                <p>{{ message }}</p>
+            </div>
+            {% endfor %}
+        {% endif %}
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="promotii-form-grid">
+                {% for field in form %}
+                <div class="form-group">
+                    <label class="form-label">
+                        {{ field.label }}{% if field.field.required %} <span class="required">*</span>{% endif %}
+                    </label>
+                    
+                    {% if field.field.widget.input_type == 'checkbox' %}
+                    <div class="promotii-checkbox-wrapper">
+                        {{ field }}
+                    </div>
+                    {% else %}
+                    {{ field }}
+                    {% endif %}
+                    
+                    {% if field.errors %}
+                    <div class="form-error">{{ field.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            
+            <button type="submit" class="btn btn-orange btn-full mt-30">
+                <i class="fas fa-paper-plane"></i> Lanseaza Promotia
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

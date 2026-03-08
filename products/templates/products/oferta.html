@@ -1,0 +1,32 @@
+{% extends 'products/base.html' %}
+
+{% block title %}Oferta Speciala - Secured Systems{% endblock %}
+
+{% block content %}
+<div class="promo-container">
+    <div class="promo-box promo-box-success text-center">
+        
+        <div class="promo-icon-circle">
+            <i class="fas fa-gift"></i>
+        </div>
+        
+        <h1 class="promo-title-success text-3xl">FELICITARI!</h1>
+        
+        <h2 class="text-2xl mb-30">Ai acces la oferta exclusiva!</h2>
+        
+        <div class="promo-discount-box">
+            <p class="promo-discount-value">-50%</p>
+            <p class="promo-discount-text">REDUCERE LA TOATE PRODUSELE!</p>
+        </div>
+        
+        <p class="text-muted mb-30">
+            Aceasta oferta este valabila doar in sesiunea curenta.<br>
+            Profita acum de reduceri exclusive!
+        </p>
+        
+        <a href="{% url 'produse' %}" class="btn btn-orange btn-lg">
+            <i class="fas fa-shopping-cart"></i> Mergi la Cumparaturi
+        </a>
+    </div>
+</div>
+{% endblock %}

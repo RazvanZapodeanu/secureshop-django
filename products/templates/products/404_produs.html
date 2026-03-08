@@ -1,0 +1,37 @@
+{% extends 'products/base.html' %}
+
+{% block title %}Produs Negasit - Secured{% endblock %}
+
+{% block content %}
+<div class="error-404-container">
+    
+    <div class="error-404-code">404</div>
+    
+    <h1 class="error-404-title">Produsul Cautat Nu Exista</h1>
+    
+    <p class="error-404-message">
+        Ne pare rau, dar produsul pe care il cautati nu a fost gasit in baza noastra de date. 
+        Poate a fost sters sau linkul este incorect.
+    </p>
+    
+    <div class="error-404-buttons">
+        <a href="{% url 'produse' %}" class="btn btn-primary">
+            VEZI TOATE PRODUSELE
+        </a>
+        <a href="{% url 'index' %}" class="btn btn-secondary">
+            INAPOI LA PAGINA PRINCIPALA
+        </a>
+    </div>
+    
+    <div class="error-404-help">
+        <h3>Ai nevoie de ajutor?</h3>
+        <p>
+            Daca crezi ca acest produs ar trebui sa existe sau ai intalnit o eroare, 
+            te rugam sa ne contactezi.
+        </p>
+        <a href="{% url 'contact' %}" class="text-orange">
+            CONTACTEAZA-NE →
+        </a>
+    </div>
+</div>
+{% endblock %}

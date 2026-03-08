@@ -10,6 +10,8 @@ django-colorfield = "*"
 pillow = "*"
 psycopg2 = "*"
 python-decouple = "*"
+django-apscheduler = "*"
+reportlab = "*"
 
 [dev-packages]
 

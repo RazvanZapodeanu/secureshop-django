@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmare Email - Secured Systems</title>
+</head>
+<body style="font-family: Arial, sans-serif; background: #0F0F1E; color: #E8E8E8; padding: 40px;">
+    <div style="max-width: 600px; margin: 0 auto; background: #1A1A2E; border-radius: 16px; padding: 40px; border: 2px solid #00D9FF;">
+        
+        <div style="text-align: center; margin-bottom: 30px;">
+            <div style="width: 80px; height: 80px; background: #FB7E14; margin: 0 auto;
+                        display: inline-flex; align-items: center; justify-content: center;
+                        font-size: 40px; font-weight: bold; color: white;
+                        clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);">
+                λ
+            </div>
+        </div>
+        
+        <h1 style="color: #00D9FF; text-align: center; margin-bottom: 20px;">
+            Bun venit pe Secured Systems!
+        </h1>
+        
+        <p style="font-size: 1.1rem; line-height: 1.6;">
+            Salut <strong style="color: #FB7E14;">{{ user.first_name }} {{ user.last_name }}</strong>,
+        </p>
+        
+        <p style="font-size: 1.1rem; line-height: 1.6;">
+            Iti multumim pentru inregistrarea pe site-ul nostru. 
+            Username-ul tau este: <strong style="color: #00D9FF;">{{ user.username }}</strong>
+        </p>
+        
+        <p style="font-size: 1.1rem; line-height: 1.6;">
+            Pentru a-ti confirma adresa de email si a activa contul, te rugam sa dai click pe butonul de mai jos:
+        </p>
+        
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="{{ link_confirmare }}" style="display: inline-block; padding: 15px 40px;
+                    background: linear-gradient(135deg, #FB7E14, #ff9500); color: white;
+                    text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem;">
+                Confirma Email-ul
+            </a>
+        </div>
+        
+        <p style="font-size: 0.9rem; color: #888;">
+            Sau copiaza acest link in browser: <br>
+            <a href="{{ link_confirmare }}" style="color: #00D9FF; word-break: break-all;">{{ link_confirmare }}</a>
+        </p>
+        
+        <hr style="border: none; border-top: 1px solid rgba(0,217,255,0.3); margin: 30px 0;">
+        
+        <p style="font-size: 0.9rem; color: #888; text-align: center;">
+            Daca nu ti-ai creat cont pe Secured Systems, ignora acest email.
+        </p>
+        
+        <p style="font-size: 0.9rem; color: #888; text-align: center;">
+            &copy; Secured Systems - Echipamente de securitate de top
+        </p>
+    </div>
+</body>
+</html>

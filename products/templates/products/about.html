@@ -1,216 +1,65 @@
 {% extends 'products/base.html' %}
-{% load static %}
 
-{% block title %}Despre Noi - Magazin Securitate{% endblock %}
+{% block title %}Despre Noi - Secured Systems{% endblock %}
 
 {% block content %}
-
-<div style="margin-bottom: 50px;">
-    <h1 style="font-size: 2.5rem;
-               margin-bottom: 15px;
-               color: var(--text-primary);">
-        Despre Noi
-    </h1>
+<div class="container-narrow">
     
-    <div style="width: 80px;
-                height: 4px;
-                background: linear-gradient(90deg, var(--lambda-orange), var(--tech-cyan));
-                margin-bottom: 20px;"></div>
+    <h1 class="page-title">Despre Secured Systems</h1>
     
-    <p style="font-size: 1.2rem;
-              color: var(--text-secondary);
-              max-width: 700px;">
-        Magazin online de echipamente de securitate și supraveghere
-    </p>
-</div>
-
-<div style="background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-left: 5px solid var(--lambda-orange);
-            padding: 40px;
-            margin-bottom: 40px;">
+    <section>
+        <h2>Cine suntem</h2>
+        <p>Secured Systems este un magazin online specializat în echipamente de securitate și supraveghere. Oferim soluții complete pentru protecția locuințelor, birourilor și spațiilor comerciale.</p>
+    </section>
     
-    <h2 style="color: var(--tech-cyan);
-               font-size: 1.8rem;
-               margin-bottom: 20px;">
-        Misiunea Noastră
-    </h2>
+    <section>
+        <h2>Ce oferim</h2>
+        <ul class="about-list">
+            <li>Camere de supraveghere 4K cu viziune nocturnă</li>
+            <li>Sisteme de alarmă wireless cu notificări GSM</li>
+            <li>Control acces biometric și RFID</li>
+            <li>Video interfoane și sisteme intercom</li>
+            <li>NVR-uri și DVR-uri pentru stocare</li>
+            <li>Senzori de mișcare și detectori</li>
+        </ul>
+    </section>
     
-    <p style="color: var(--text-secondary);
-              line-height: 1.8;
-              font-size: 1.05rem;
-              margin-bottom: 20px;">
-        Oferim o gamă variată de echipamente de securitate pentru protecția locuințelor și afacerilor. Produsele noastre sunt selectate cu atenție pentru a asigura calitate și fiabilitate.
-    </p>
-    
-    <p style="color: var(--text-secondary);
-              line-height: 1.8;
-              font-size: 1.05rem;">
-        Clienții pot naviga prin categorii, compara specificații tehnice și comanda online în mod simplu și rapid.
-    </p>
-</div>
-
-<div style="display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;">
-    
-    <div style="background: var(--bg-secondary);
-                border: 1px solid var(--border-color);
-                padding: 35px 30px;
-                transition: all 0.3s ease;"
-         onmouseover="this.style.borderColor='var(--tech-cyan)';"
-         onmouseout="this.style.borderColor='var(--border-color)';">
-        
-        <div style="width: 50px;
-                    height: 50px;
-                    background: var(--lambda-orange);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 1.5rem;
-                    margin-bottom: 20px;
-                    color: white;">
-            📦
+    <section>
+        <h2>De ce noi?</h2>
+        <div class="about-features">
+            <div class="about-feature">
+                <i class="fas fa-shipping-fast"></i>
+                <h3>Livrare rapida</h3>
+                <p>Livrare in 24-48h in toata tara</p>
+            </div>
+            <div class="about-feature">
+                <i class="fas fa-headset"></i>
+                <h3>Suport 24/7</h3>
+                <p>Echipa tehnica disponibila oricand</p>
+            </div>
+            <div class="about-feature">
+                <i class="fas fa-certificate"></i>
+                <h3>Garantie extinsa</h3>
+                <p>Pana la 5 ani garantie</p>
+            </div>
         </div>
-        
-        <h3 style="color: var(--tech-cyan);
-                   font-size: 1.3rem;
-                   margin-bottom: 15px;">
-            Produse Variate
-        </h3>
-        
-        <p style="color: var(--text-secondary);
-                  line-height: 1.6;">
-            De la camere de supraveghere la sisteme complete de securitate, oferim soluții pentru diverse nevoi.
-        </p>
+    </section>
+    
+    <section>
+        <h2>Contact</h2>
+        <p><i class="fas fa-envelope text-cyan"></i> Email: contact@secured-systems.ro</p>
+        <p><i class="fas fa-phone text-cyan"></i> Telefon: 0721 123 456</p>
+        <p><i class="fas fa-map-marker-alt text-cyan"></i> Adresa: Str. Securității Nr. 1, București</p>
+    </section>
+    
+    <div class="mt-40">
+        <a href="{% url 'contact' %}" class="btn btn-primary">
+            <i class="fas fa-envelope"></i> Contacteaza-ne
+        </a>
+        <a href="{% url 'produse' %}" class="btn btn-secondary ml-15">
+            <i class="fas fa-shopping-bag"></i> Vezi produsele
+        </a>
     </div>
     
-    <div style="background: var(--bg-secondary);
-                border: 1px solid var(--border-color);
-                padding: 35px 30px;
-                transition: all 0.3s ease;"
-         onmouseover="this.style.borderColor='var(--tech-cyan)';"
-         onmouseout="this.style.borderColor='var(--border-color)';">
-        
-        <div style="width: 50px;
-                    height: 50px;
-                    background: var(--tech-cyan);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 1.5rem;
-                    margin-bottom: 20px;
-                    color: white;">
-            🛒
-        </div>
-        
-        <h3 style="color: var(--tech-cyan);
-                   font-size: 1.3rem;
-                   margin-bottom: 15px;">
-            Comandă Online
-        </h3>
-        
-        <p style="color: var(--text-secondary);
-                  line-height: 1.6;">
-            Platforma permite căutarea și compararea produselor, facilitând alegerea echipamentelor potrivite.
-        </p>
-    </div>
 </div>
-
-<div style="background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-left: 5px solid var(--tech-cyan);
-            padding: 40px;
-            margin-bottom: 40px;">
-    
-    <h2 style="color: var(--lambda-orange);
-               font-size: 1.8rem;
-               margin-bottom: 20px;">
-        Echipa Noastră
-    </h2>
-    
-    <p style="color: var(--text-secondary);
-              line-height: 1.8;
-              font-size: 1.05rem;
-              margin-bottom: 20px;">
-        Echipa noastră este dedicată oferirii unei experiențe de cumpărături plăcute și eficiente. Lucrăm cu producători de încredere pentru a aduce pe piață produse de calitate.
-    </p>
-    
-    <div style="display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 20px;
-                margin-top: 30px;">
-        
-        <div style="padding: 20px;
-                    background: var(--bg-secondary);
-                    border: 1px solid var(--border-color);
-                    text-align: center;">
-            <div style="color: var(--lambda-orange); font-size: 1.2rem; font-weight: 600; margin-bottom: 5px;">
-                Vânzări
-            </div>
-            <div style="color: var(--text-secondary); font-size: 0.9rem;">
-                Consultanță produse
-            </div>
-        </div>
-        
-        <div style="padding: 20px;
-                    background: var(--bg-secondary);
-                    border: 1px solid var(--border-color);
-                    text-align: center;">
-            <div style="color: var(--tech-cyan); font-size: 1.2rem; font-weight: 600; margin-bottom: 5px;">
-                Logistică
-            </div>
-            <div style="color: var(--text-secondary); font-size: 0.9rem;">
-                Livrare comenzi
-            </div>
-        </div>
-        
-        <div style="padding: 20px;
-                    background: var(--bg-secondary);
-                    border: 1px solid var(--border-color);
-                    text-align: center;">
-            <div style="color: var(--lambda-orange); font-size: 1.2rem; font-weight: 600; margin-bottom: 5px;">
-                Suport
-            </div>
-            <div style="color: var(--text-secondary); font-size: 0.9rem;">
-                Asistență clienți
-            </div>
-        </div>
-    </div>
-</div>
-
-<div style="background: linear-gradient(135deg, var(--bg-secondary), var(--facility-dark));
-            border: 2px solid var(--border-color);
-            padding: 40px;
-            text-align: center;">
-    
-    <h2 style="color: var(--text-primary);
-               font-size: 1.8rem;
-               margin-bottom: 15px;">
-        Ai nevoie de ajutor?
-    </h2>
-    
-    <p style="color: var(--text-secondary);
-              font-size: 1.1rem;
-              margin-bottom: 25px;">
-        Contactează-ne pentru informații despre produse și comenzi
-    </p>
-    
-    <a href="{% url 'contact' %}" 
-       style="display: inline-block;
-              background: var(--lambda-orange);
-              color: white;
-              padding: 15px 40px;
-              text-decoration: none;
-              font-weight: 600;
-              letter-spacing: 1px;
-              border: 2px solid var(--lambda-orange);
-              transition: all 0.3s ease;"
-       onmouseover="this.style.background='transparent'; this.style.color='var(--lambda-orange)';"
-       onmouseout="this.style.background='var(--lambda-orange)'; this.style.color='white';">
-        CONTACT
-    </a>
-</div>
-
 {% endblock %}

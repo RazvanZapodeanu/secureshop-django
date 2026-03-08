@@ -1,0 +1,19 @@
+{% if vizualizari %}
+<div class="recent-views">
+    <h3 class="recent-views-title">
+        <i class="fas fa-history"></i> Ultimele vizualizari de azi
+    </h3>
+    
+    <div class="recent-views-grid">
+        {% for produs in vizualizari %}
+        <a href="{% url 'detaliu_produs' produs.slug %}" class="recent-views-item">
+            {% if produs.imagine %}
+            <img src="{{ produs.imagine.url }}" alt="{{ produs.nume }}">
+            {% endif %}
+            <p class="recent-views-item-name">{{ produs.nume|truncatechars:30 }}</p>
+            <p class="recent-views-item-price">{{ produs.pret }} LEI</p>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

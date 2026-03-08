@@ -1,7 +1,13 @@
 {% extends 'products/base.html' %}
 
-{% block title %}Log Accesari{% endblock %}
+{% block title %}Log Accesari - Secured Systems{% endblock %}
 
 {% block content %}
-{{ log_html|safe }}
+<div class="container">
+    <h1 class="page-title">
+        <i class="fas fa-history"></i> Log Accesari
+    </h1>
+    
+    {{ log_html|safe }}
+</div>
 {% endblock %}

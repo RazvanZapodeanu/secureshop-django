@@ -1,0 +1,53 @@
+{% extends 'products/base.html' %}
+
+{% block title %}Schimba Parola - Secured Systems{% endblock %}
+
+{% block content %}
+<div class="password-container">
+    <div class="password-box">
+        
+        <h1 class="password-title">
+            <i class="fas fa-key"></i> Schimba Parola
+        </h1>
+        
+        {% if form.errors %}
+        <div class="alert alert-error">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label class="form-label">Parola curenta</label>
+                <input type="password" name="old_password" required class="form-input">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Parola noua</label>
+                <input type="password" name="new_password1" required class="form-input">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Confirma parola noua</label>
+                <input type="password" name="new_password2" required class="form-input">
+            </div>
+            
+            <button type="submit" class="btn btn-orange btn-full">
+                <i class="fas fa-key"></i> Schimba Parola
+            </button>
+        </form>
+        
+        <p class="auth-footer">
+            <a href="{% url 'profil' %}">
+                <i class="fas fa-arrow-left"></i> Inapoi la Profil
+            </a>
+        </p>
+    </div>
+</div>
+{% endblock %}
