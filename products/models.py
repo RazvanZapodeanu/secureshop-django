@@ -217,7 +217,7 @@ class Nota(models.Model):
         unique_together = ['utilizator', 'produs']
 
 
-class IncercareLagare(models.Model):
+class IncercareLogare(models.Model):
     username = models.CharField(max_length=150)
     ip_address = models.GenericIPAddressField()
     data_incercare = models.DateTimeField(auto_now_add=True)
