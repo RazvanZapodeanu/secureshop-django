@@ -13,7 +13,7 @@ from django.utils import timezone
 from django.utils.html import strip_tags
 from django.conf import settings
 from django.db.models import Count
-from .models import Produs, Discount, Specificatie, Review, Categorie, Utilizator, Vizualizare, Promotie, Comanda, ProdusComanda, Nota, IncercareLagare
+from .models import Produs, Discount, Specificatie, Review, Categorie, Utilizator, Vizualizare, Promotie, Comanda, ProdusComanda, Nota, IncercareLogare
 from datetime import datetime, date, timedelta
 from collections import Counter
 from decimal import Decimal
@@ -681,10 +681,10 @@ def login_view(request):
             logger.info(f'Login reusit: {user.username}')
             return redirect('profil')
         else:
-            IncercareLagare.objects.create(username=username, ip_address=ip)
+            IncercareLogare.objects.create(username=username, ip_address=ip)
             
             recent = timezone.now() - timedelta(minutes=2)
-            incercari = IncercareLagare.objects.filter(username=username, ip_address=ip, data_incercare__gte=recent).count()
+            incercari = IncercareLogare.objects.filter(username=username, ip_address=ip, data_incercare__gte=recent).count()
             
             if incercari >= 3:
                 mail_admins(
